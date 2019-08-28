@@ -1,0 +1,54 @@
+<input type="text" [(ngModel)]="name" placeholder="Name" />
+<input type="number" [(ngModel)]="price" placeholder="Price" />
+<textarea [(ngModel)]="description" placeholder="Description"></textarea>
+<button type="button" (click)="addProduct()">Add</button>
+<select [(ngModel)]="filterValue">
+  <option value="all">All</option>
+  <option value="activated">Activated</option>
+  <option value="deactivated">Deactivated</option>
+</select>
+
+<div *ngFor="let product of products">
+    <ng-container *ngIf="filterValue === 'activated'">
+        <ng-container *ngIf="product.active">
+            <h4>{{product.name}}</h4>
+            <p>{{product.price}}</p>
+            <p>{{product.description}}</p>
+            <p>
+                <i [ngClass]="{status: true, activate:  product.active, deactive: !product.active}" (click)="changeStatus(product)">
+          {{ product.active ? 'Activated' : 'Deactivated' }}
+        </i>
+            </p>
+
+            <button type="button" (click)="removeProduct(product.name)">Remove</button>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="filterValue === 'deactivated'">
+        <ng-container *ngIf="!product.active">
+            <h4>{{product.name}}</h4>
+            <p>{{product.price}}</p>
+            <p>{{product.description}}</p>
+            <p>
+                <i [ngClass]="{status: true, activate:  product.active, deactive: !product.active}" (click)="changeStatus(product)">
+          {{ product.active ? 'Activated' : 'Deactivated' }}
+        </i>
+            </p>
+
+            <button type="button" (click)="removeProduct(product.name)">Remove</button>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="filterValue === 'all'">
+        <h4>{{product.name}}</h4>
+        <p>{{product.price}}</p>
+        <p>{{product.description}}</p>
+        <p>
+            <i [ngClass]="{status: true, activate:  product.active, deactive: !product.active}" (click)="changeStatus(product)">
+        {{ product.active ? 'Activated' : 'Deactivated' }}
+      </i>
+        </p>
+
+        <button type="button" (click)="removeProduct(product.name)">Remove</button>
+    </ng-container>
+</div>

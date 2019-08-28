@@ -1,0 +1,14 @@
+<input type="text" [(ngModel)]="name" />
+<p [class]="'red' + (redBold ? ' bold' : '')">{{ name }}</p>
+<p [class]="'blue' + (!redBold ? ' bold' : '')">{{ name }}</p>
+
+<button type="button" (click)="change()">Change</button>
+
+<p *ngIf="show; else showBlue" [class]="'red'">{{ name }}</p>
+<ng-template #showBlue>
+    <p [class]="'blue'">{{ name }}</p>
+</ng-template>
+
+<p *ngFor="let name of names">
+    {{ name }}
+</p>
